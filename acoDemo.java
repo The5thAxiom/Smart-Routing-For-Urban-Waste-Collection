@@ -7,6 +7,16 @@ import java.util.stream.IntStream;
 
 public class acoDemo {
     public static void main(String args[]) {
+        double graph[][] = {
+            {0, 3, 0, 4, 0, 4, 0},
+            {3, 0, 1, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 3},
+            {4, 0, 0, 0, 1, 2, 0},
+            {0, 0, 0, 1, 0, 0, 3},
+            {4, 0, 0, 2, 0, 0, 1},
+            {0, 0, 3, 0, 3, 1, 0}
+        };
+        // AntColonyOptimization aco = new AntColonyOptimization(7, graph);
         AntColonyOptimization aco = new AntColonyOptimization(7);
         aco.startAntOptimization();
     }
@@ -39,6 +49,23 @@ class AntColonyOptimization {
 
     public AntColonyOptimization(int noOfCities) {
         graph = generateRandomMatrix(noOfCities);
+        numberOfCities = graph.length;
+        for (int i = 0; i < numberOfCities; i++) {
+            for (int j = 0; j < numberOfCities; j++) {
+                System.out.print("" + graph[i][j] + "| ");
+            }
+            System.out.println();
+        }
+        numberOfAnts = (int) (numberOfCities * antFactor);
+
+        trails = new double[numberOfCities][numberOfCities];
+        probabilities = new double[numberOfCities];
+        IntStream.range(0, numberOfAnts)
+                .forEach(i -> ants.add(new Ant(numberOfCities)));
+    }
+
+    public AntColonyOptimization(int noOfCities, double igraph[][]) {
+        graph = igraph;
         numberOfCities = graph.length;
         numberOfAnts = (int) (numberOfCities * antFactor);
 

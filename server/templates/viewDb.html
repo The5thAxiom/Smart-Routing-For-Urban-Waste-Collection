@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>View DB</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Location</th>
+                <th>Fill Rate</th>
+            </tr>
+            {% for bin in bins %}
+            <tr>
+                <td>{{ bin.id }}</td>
+                <td>{{ bin.location }}</td>
+                <td>{{ bin.fill_rate }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Bin Id</th>
+                <th>Fill Level</th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Date-Time</th>
+            </tr>
+            {% for data in binData %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.bin_id }}</td>
+                <td>{{ data.fill_level }}</td>
+                <td>{{ data.temperature }}</td>
+                <td>{{ data.humidity }}</td>
+                <td>{{ data.date_time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

@@ -37,7 +37,7 @@
                 <td>{{ data.distance }}</td>
                 <td>{{ data.temperature }}</td>
                 <td>{{ data.humidity }}</td>
-                <td>{{ data.date_time }}</td>
+                <td>{{ data.date_time.date() }}</td>
             </tr>
             {% endfor %}
         </table>

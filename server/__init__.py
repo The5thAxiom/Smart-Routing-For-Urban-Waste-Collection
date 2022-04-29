@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from datetime import datetime
+from datetime import datetime, date
 
 app = Flask(__name__)
 CORS(app)
@@ -24,13 +24,27 @@ def index_route():
 def viewDB_route():
     return render_template('viewDb.html', ** {
         "bins": Bin.query.all(),
+        "distances": Distances.query.all(),
         "binData": BinData.query.all()
+    })
+
+@app.route('/make-route')
+def makeRoute_route():
+    return render_template('makeRoute.html',  ** {
+        "bins": Bin.query.all(),
+        "distances": Distances.query.all(),
+        "binData": BinData.query
+        # .filter(
+        #     BinData.date_time == date.today()
+        # )
+        .filter(BinData.distance < 10)
     })
 
 @app.route('/create')
 def create_route():
     Bin.query.delete()
     BinData.query.delete()
+    db.session.commit()
     # Dummy data
     db.session.add(Bin(**{"id": 1, "location": "location 1", "fill_rate": 20}))
     db.session.add(Bin(**{"id": 2, "location": "location 2", "fill_rate": 30}))
@@ -41,7 +55,7 @@ def create_route():
             "id": 1,
             "bin_id": 1,
             "date_time": datetime.now(),
-            "fill_level": 30,
+            "distance": 20,
             "temperature": 30,
             "humidity": 25
         }
@@ -51,7 +65,7 @@ def create_route():
             "id": 2,
             "bin_id": 2,
             "date_time": datetime.now(),
-            "fill_level": 46,
+            "distance": 10,
             "temperature": 33,
             "humidity": 20
         }
@@ -61,7 +75,7 @@ def create_route():
             "id": 3,
             "bin_id": 3,
             "date_time": datetime.now(),
-            "fill_level": 99,
+            "distance": 2,
             "temperature": 35,
             "humidity": 27
         }
@@ -71,7 +85,7 @@ def create_route():
             "id": 4,
             "bin_id": 2,
             "date_time": datetime.now(),
-            "fill_level": 79,
+            "distance": 3,
             "temperature": 38,
             "humidity": 22
         }
@@ -81,12 +95,19 @@ def create_route():
             "id": 5,
             "bin_id": 1,
             "date_time": datetime.now(),
-            "fill_level": 60,
+            "distance": 60,
             "temperature": 38,
             "humidity": 26
         }
     ))
 
+    db.session.add(Distances(
+        **{
+            "bin_one": 1,
+            "bin_two": 2,
+            "distance": 100
+        }
+    ))
 
     db.session.commit()
     return "<a href='/view-db'>go</a>"

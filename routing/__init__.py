@@ -1,2 +1,1 @@
-from routing.ant_colony_optimization import routing_algo
-
+from routing.ant_colony_optimization import AntColonyOptimizer

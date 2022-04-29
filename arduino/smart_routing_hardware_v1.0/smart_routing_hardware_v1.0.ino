@@ -71,5 +71,4 @@ void loop() {
   if (h > 80 || t > 32 || distance < 10) {
     buzz();
   }
-  
 }

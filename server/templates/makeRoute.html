@@ -4,9 +4,15 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="shortcut icon"
+            href="{{ url_for('static', filename='favicon.ico') }}"
+        />
         <title>View DB</title>
     </head>
     <body>
+        <h1>View Optimal Route</h1>
+        <h2>Bins to be collected</h2>
         <table>
             <tr>
                 <th>Id</th>
@@ -21,6 +27,7 @@
             </tr>
             {% endfor %}
         </table>
+        <h2>Data of bins to be collected</h2>
         <table>
             <tr>
                 <th>Id</th>
@@ -41,5 +48,11 @@
             </tr>
             {% endfor %}
         </table>
+        <h2>Graph</h2>
+        {% for i in range(graph|length) %}<!---->
+        {{ graphLabels[i] }}: {{ graph[i] }}<br />
+        {% endfor %}
+        <h2>Optimal Route</h2>
+        {{route}}
     </body>
 </html>

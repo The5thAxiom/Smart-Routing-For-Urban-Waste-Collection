@@ -28,86 +28,24 @@ def viewDB_route():
         "binData": BinData.query.all()
     })
 
+from server.controllers import *
+binsToCollect = getBinsToCollect()
+print(binsToCollect)
+
+bestPathById, graph, graphLabels = makeOptimalRoute(binsToCollect)
+
 @app.route('/make-route')
 def makeRoute_route():
     return render_template('makeRoute.html',  ** {
-        "bins": Bin.query.all(),
-        "distances": Distances.query.all(),
-        "binData": BinData.query
-        # .filter(
-        #     BinData.date_time == date.today()
-        # )
-        .filter(BinData.distance < 10)
+        "bins": Bin.query.filter(
+            Bin.id.in_(tuple(binsToCollect))
+        ),
+        "binData": BinData.query.filter(
+            BinData.id.in_(tuple(binsToCollect))
+        ),
+        "graph": graph,
+        "graphLabels": graphLabels,
+        "route": bestPathById[:-1]
     })
 
-@app.route('/create')
-def create_route():
-    Bin.query.delete()
-    BinData.query.delete()
-    db.session.commit()
-    # Dummy data
-    db.session.add(Bin(**{"id": 1, "location": "location 1", "fill_rate": 20}))
-    db.session.add(Bin(**{"id": 2, "location": "location 2", "fill_rate": 30}))
-    db.session.add(Bin(**{"id": 3, "location": "location 3", "fill_rate": 50}))
-
-    db.session.add(BinData(
-        **{
-            "id": 1,
-            "bin_id": 1,
-            "date_time": datetime.now(),
-            "distance": 20,
-            "temperature": 30,
-            "humidity": 25
-        }
-    ))
-    db.session.add(BinData(
-        **{
-            "id": 2,
-            "bin_id": 2,
-            "date_time": datetime.now(),
-            "distance": 10,
-            "temperature": 33,
-            "humidity": 20
-        }
-    ))
-    db.session.add(BinData(
-        **{
-            "id": 3,
-            "bin_id": 3,
-            "date_time": datetime.now(),
-            "distance": 2,
-            "temperature": 35,
-            "humidity": 27
-        }
-    ))
-    db.session.add(BinData(
-        **{
-            "id": 4,
-            "bin_id": 2,
-            "date_time": datetime.now(),
-            "distance": 3,
-            "temperature": 38,
-            "humidity": 22
-        }
-    ))
-    db.session.add(BinData(
-        **{
-            "id": 5,
-            "bin_id": 1,
-            "date_time": datetime.now(),
-            "distance": 60,
-            "temperature": 38,
-            "humidity": 26
-        }
-    ))
-
-    db.session.add(Distances(
-        **{
-            "bin_one": 1,
-            "bin_two": 2,
-            "distance": 100
-        }
-    ))
-
-    db.session.commit()
-    return "<a href='/view-db'>go</a>"
+from server import create_data

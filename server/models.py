@@ -7,8 +7,9 @@ class Bin(db.Model):
     bin_data = db.relationship('BinData', backref='bin', lazy=True)
 
 class Distances(db.Model):
-    bin_one = db.Column(db.Integer, unique=True, nullable=False)
-    bin_two = db.Column(db.Integer, unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key = True)
+    bin_one = db.Column(db.Integer, unique=False, nullable=False)
+    bin_two = db.Column(db.Integer, unique=False, nullable=False)
     distance = db.Column(db.Integer, unique=False, nullable=True)
 
 class BinData(db.Model):

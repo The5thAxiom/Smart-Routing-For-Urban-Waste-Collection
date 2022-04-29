@@ -10,3 +10,4 @@ problem = np.array([
 
 optimizer = AntColonyOptimizer(ants=10, evaporation_rate=.1, intensification=2, alpha=1, beta=1, beta_evaporation_rate=0, choose_best=.1)
 best = optimizer.fit(problem, 100)
+print(best)

@@ -10,7 +10,7 @@ def create_route():
     Distances.query.delete()
     db.session.commit()
 
-    numBins = 10
+    numBins = 50
     for i in range(1, numBins):
         db.session.add(Bin(**{"id": i, "location": f"location #{i}", "fill_rate": random.randint(10, 100)}))
 
@@ -37,4 +37,11 @@ def create_route():
                 ))
 
     db.session.commit()
-    return "<a href='/make-route'>go</a>"
+    return """
+    <nav>
+        <a href="/">home</a><br/>
+        <a href="/create">create new dataset</a><br/>
+        <a href="/make-route">see optimal route</a><br/>
+        <a href="/view-db">view db</a><br/>
+    </nav>
+    """

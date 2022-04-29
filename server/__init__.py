@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime, date
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -10,6 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # we don't need real time updates as this is a REST based api
 db = SQLAlchemy(app)
 
+from server.controllers import *
 from server.models import *
 db.create_all()
 
@@ -28,14 +30,11 @@ def viewDB_route():
         "binData": BinData.query.all()
     })
 
-from server.controllers import *
-binsToCollect = getBinsToCollect()
-print(binsToCollect)
-
-bestPathById, graph, graphLabels = makeOptimalRoute(binsToCollect)
-
 @app.route('/make-route')
 def makeRoute_route():
+    binsToCollect = getBinsToCollect()
+    print(binsToCollect)
+    bestPathById, graph, graphLabels = makeOptimalRoute(binsToCollect)
     return render_template('makeRoute.html',  ** {
         "bins": Bin.query.filter(
             Bin.id.in_(tuple(binsToCollect))

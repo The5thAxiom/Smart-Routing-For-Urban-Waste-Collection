@@ -11,7 +11,20 @@
         <title>View DB</title>
     </head>
     <body>
+        <nav>
+            <a href="/">home</a><br />
+            <a href="/create">create new dataset</a><br />
+            <a href="/make-route">see optimal route</a><br />
+            <a href="/view-db">view db</a><br />
+        </nav>
         <h1>View Optimal Route</h1>
+        <h2>Optimal Route</h2>
+        {{route}}
+        <h2>Graph</h2>
+        {% for i in range(graph|length) %}<!---->
+        {{ graphLabels[i] }}: {{ graph[i] }}<br />
+        {% endfor %}
+
         <h2>Bins to be collected</h2>
         <table>
             <tr>
@@ -48,11 +61,5 @@
             </tr>
             {% endfor %}
         </table>
-        <h2>Graph</h2>
-        {% for i in range(graph|length) %}<!---->
-        {{ graphLabels[i] }}: {{ graph[i] }}<br />
-        {% endfor %}
-        <h2>Optimal Route</h2>
-        {{route}}
     </body>
 </html>

@@ -10,7 +10,7 @@ def getBinsToCollect():
     urgentBinIds = set([x.id for x in urgentBins])
 
     possibleBins = Bin.query.filter(
-        Bin.fill_rate > 40
+        Bin.fill_rate > 60
     )
     possibleBinIds = set([x.id for x in possibleBins])
 
@@ -18,6 +18,8 @@ def getBinsToCollect():
     return binsToCollect
 
 def makeOptimalRoute(bins):
+    if len(bins) == 0:
+        return None
     problem = np.zeros([len(bins), len(bins)])
     print(problem)
     pToBin = {i: bins[i] for i in range(len(bins))}

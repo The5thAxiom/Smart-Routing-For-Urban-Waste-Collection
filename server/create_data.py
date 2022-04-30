@@ -10,7 +10,7 @@ def create_route():
     Distances.query.delete()
     db.session.commit()
 
-    numBins = 50
+    numBins = 30
     for i in range(1, numBins):
         db.session.add(Bin(**{"id": i, "location": f"location #{i}", "fill_rate": random.randint(10, 100)}))
 

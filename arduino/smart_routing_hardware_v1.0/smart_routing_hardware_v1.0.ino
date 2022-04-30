@@ -68,7 +68,7 @@ void loop() {
   getDist();
   getHumTemp();
   sendJSON();
-  if (h > 80 || t > 32 || distance < 10) {
+  if (h > 80 || distance < 10) {
     buzz();
   }
 }

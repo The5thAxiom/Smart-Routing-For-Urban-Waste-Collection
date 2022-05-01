@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime, date
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -19,7 +18,6 @@ db.create_all()
 def index_route():
     return render_template('index.html', **{
         "heading": "Smart Routing for Urban Waste Collection",
-        "by": "Samridh"
     })
 
 @app.route('/view-db')

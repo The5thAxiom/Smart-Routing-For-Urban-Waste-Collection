@@ -270,5 +270,5 @@ class AntColonyOptimizer:
                         ["\nStopped Early!" if self.stopped_early else ""][0]),
                     bbox={'facecolor': 'gray', 'alpha': 0.8, 'pad': 10}, transform=ax.transAxes)
             ax.legend()
-            plt.title("Ant Colony Optimization Results (best: {})".format(np.round(self.best, 2)))
+            plt.title(f"Ant Colony Optimization Results (best: {np.round(self.best, 2)})")
             plt.show()

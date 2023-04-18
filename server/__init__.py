@@ -42,7 +42,9 @@ def makeRoute_route():
         ),
         "graph": graph,
         "graphLabels": graphLabels,
-        "route": bestPathById[:-1]
+        "route": bestPathById[:-1],
+        "bins_to_collect": len(binsToCollect),
+        "total_bins": len(BinData.query.all())
     })
 
 from server import create_data

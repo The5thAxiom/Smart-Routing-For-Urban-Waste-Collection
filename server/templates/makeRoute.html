@@ -26,6 +26,9 @@
         {% endfor %}
 
         <h2>Bins to be collected</h2>
+        Total bins in DB: {{total_bins}}<br />
+        Bins being collected: {{bins_to_collect}}<br />
+        Saving: {{(total_bins - bins_to_collect) * 100 / total_bins}}% <br />
         <table>
             <tr>
                 <th>Id</th>
@@ -63,3 +66,4 @@
         </table>
     </body>
 </html>
+

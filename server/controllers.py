@@ -5,12 +5,12 @@ import numpy as np
 
 def getBinsToCollect():
     urgentBins = BinData.query.filter(
-        (BinData.distance < 20) | (BinData.humidity > 75)
+        (BinData.distance < 20) | (BinData.humidity > 80)
     )
     urgentBinIds = set([x.id for x in urgentBins])
 
     possibleBins = Bin.query.filter(
-        Bin.fill_rate > 60
+        Bin.fill_rate > 70
     )
     possibleBinIds = set([x.id for x in possibleBins])
 
